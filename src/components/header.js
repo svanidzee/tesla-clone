@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-import { MdOutlineMenu, MdOutlineClose, MdClose } from "react-icons/md";
+import { MdClose } from "react-icons/md";
 import { MdMenu } from "react-icons/md";
 import { tabData, menuData } from "./data/header-data";
 
@@ -70,7 +70,7 @@ const Menu = styled.div`
   justify-content: center;
   flex: 1;
 
-  @media (max-width: 768px) {
+  @media (max-width: 1010px) {
     display: none;
   }
 `;
