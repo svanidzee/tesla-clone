@@ -1,26 +1,50 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { MdOutlineMenu } from "react-icons/md";
+
+import { MdOutlineMenu, MdOutlineClose, MdClose } from "react-icons/md";
 import { MdMenu } from "react-icons/md";
+import { tabData, menuData } from "./data/header-data";
 
 const Header = () => {
+  const [burgerStatus, setBurgerStatus] = useState(false);
+
+  const onMenuHandler = () => {
+    setBurgerStatus((prevStatus) => !prevStatus);
+  };
+
   return (
     <Container>
       <Link to="/">
         <img src="/images/logo.svg" alt="Logo" />
       </Link>
       <Menu>
-        <NavLink to="/">Model S</NavLink>
-        <NavLink to="/">Model 3</NavLink>
-        <NavLink to="/">Model X</NavLink>
-        <NavLink to="/">Model Y</NavLink>
+        {tabData.map(({ path, label }, i) => (
+          <NavLink key={i} to={path}>
+            {label}
+          </NavLink>
+        ))}
       </Menu>
+
       <RightMenu>
         <NavLink to="/">Shop</NavLink>
         <NavLink to="/">Tesla Account</NavLink>
-        <CustomMenu />
+        <CustomMenu onClick={onMenuHandler} />
       </RightMenu>
+
+      <BurgerNav show={burgerStatus}>
+        <CloseWrapper>
+          <CustomClose onClick={onMenuHandler} />
+        </CloseWrapper>
+
+        {menuData.map(({ path, label }, i) => (
+          <li>
+            <Link key={i} to={path}>
+              {label}
+            </Link>
+          </li>
+        ))}
+      </BurgerNav>
     </Container>
   );
 };
@@ -37,6 +61,7 @@ const Container = styled.div`
   top: 0;
   left: 0;
   right: 0;
+  z-index: 1;
 `;
 
 const Menu = styled.div`
@@ -70,4 +95,38 @@ const RightMenu = styled.div`
 const CustomMenu = styled(MdMenu)`
   cursor: pointer;
   font-size: 23px;
+`;
+
+const BurgerNav = styled.div`
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  background: white;
+  width: 300px;
+  z-index: 16;
+  list-style: none;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  text-align: start;
+  transform: ${(props) => (props.show ? "translateX(0)" : "translateX(100%)")};
+  transition: transform 0.2s;
+  li {
+    padding: 15px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+
+    a {
+      font-weight: 600;
+    }
+  }
+`;
+
+const CustomClose = styled(MdClose)`
+  cursor: pointer;
+`;
+
+const CloseWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
 `;

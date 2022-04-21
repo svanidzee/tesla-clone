@@ -1,3 +1,7 @@
+import React from "react";
+import { createGlobalStyle } from "styled-components";
+
+const GlobalStyle = createGlobalStyle`
 * {
     box-sizing: border-box;
     font-family: "Rubik", sans-serif;
@@ -28,3 +32,6 @@ a {
         transform: translateY(3px);
     }
 }  */
+`;
+
+export default GlobalStyle;
